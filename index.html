@@ -6,6 +6,7 @@
   <title>Shorland — Commercial IT Systems + Support</title>
   <meta name="description" content="Shorland provides commercial IT systems and support for businesses, co-working spaces and commercial property operators.">
   <meta name="theme-color" content="#FAFAF7">
+  <meta name="robots" content="index, follow">
 
   <meta property="og:title" content="Shorland — Commercial IT Systems + Support">
   <meta property="og:description" content="Managed commercial IT systems, support, networks and infrastructure.">
@@ -230,6 +231,12 @@
       letter-spacing: -.01em;
     }
 
+    .statement br {
+      content: "";
+      display: block;
+      margin-top: 6px;
+    }
+
     .contact {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 300px;
@@ -354,6 +361,15 @@
       .legal span { white-space: normal; }
     }
 
+    @media (max-width: 520px) {
+      .route-live,
+      .node.is-live,
+      .led,
+      .scan {
+        animation-duration: 14s;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: .001ms !important;
@@ -379,20 +395,18 @@
     </header>
 
     <section class="hero reveal" aria-labelledby="intro-title">
-      <h1 id="intro-title">Commercial IT systems, run quietly.</h1>
+      <h1 id="intro-title">Commercial IT systems,<br>run quietly.</h1>
       <p class="lede">Shorland designs, supports and manages the working technology behind offices, co-working spaces and commercial property: networks, Wi&#8209;Fi, Microsoft 365, devices, connectivity and day-to-day support.</p>
     </section>
 
-    <section class="infrastructure reveal" aria-labelledby="infrastructure-title">
+    <section class="infrastructure reveal" aria-hidden="true">
       <div class="visual-frame">
         <div class="visual-labels" aria-hidden="true">
           <span>building systems</span>
           <span>comms room / support layer</span>
         </div>
 
-        <svg class="infra-svg" viewBox="0 0 760 310" role="img" aria-labelledby="infrastructure-title infrastructure-desc">
-          <title id="infrastructure-title">Commercial building IT systems diagram</title>
-          <desc id="infrastructure-desc">A quiet animated line diagram showing a commercial building network connected to a comms rack, with smooth signal paths representing managed IT systems and support.</desc>
+        <svg class="infra-svg" viewBox="0 0 760 310" focusable="false">
 
           <rect x="0" y="0" width="760" height="310" fill="transparent" />
 
@@ -505,13 +519,13 @@
     </section>
 
     <section class="statement" aria-label="Positioning statement">
-      <p>Good commercial IT is steady, well-owned and unobtrusive. Shorland looks after the practical layer behind the working day: networks, connectivity, Microsoft 365, devices and support.</p>
+      <p>Good commercial IT is steady, well-owned and unobtrusive.<br>Shorland looks after the practical layer behind the working day:<br>networks, connectivity, Microsoft 365, devices and support.</p>
     </section>
 
     <section class="contact" aria-labelledby="contact-title">
       <div>
         <h2 id="contact-title">Get in touch.</h2>
-        <p>For new commercial enquiries, email is the best starting point. Send a brief note about the organisation, site or requirement, and we will respond with a sensible next step.</p>
+        <p>For new commercial enquiries, email is the best starting point. Send a brief note about the organisation, site or requirement, and we will respond with our next steps.</p>
       </div>
       <ul class="contact-details">
         <li>
