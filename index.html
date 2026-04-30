@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shorland — Commercial IT Systems + Support</title>
+  <meta name="description" content="Shorland provides commercial IT systems and support for businesses, co-working spaces and commercial property operators.">
+  <meta name="theme-color" content="#FAFAF7">
+
+  <meta property="og:title" content="Shorland — Commercial IT Systems + Support">
+  <meta property="og:description" content="Managed commercial IT systems, support, networks and infrastructure.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFAF7;
+      --text: #1A1A18;
+      --muted: #6A6866;
+      --quiet: #918F89;
+      --rule: #CCCBC6;
+      --soft-rule: #E5E3DD;
+      --panel: rgba(255,255,255,.46);
+      --signal: #2C2C2A;
+      --max: 790px;
+      --gutter: 32px;
+      --section: 74px;
+      --ease: cubic-bezier(.2,.6,.2,1);
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(90deg, rgba(204,203,198,.062) 1px, transparent 1px) 0 0 / 88px 88px,
+        linear-gradient(180deg, rgba(204,203,198,.054) 1px, transparent 1px) 0 0 / 88px 88px,
+        var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    main {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 72px var(--gutter) 58px;
+    }
+
+    .brand {
+      margin-bottom: 56px;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 314px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero {
+      max-width: 665px;
+      margin-bottom: 62px;
+    }
+
+    h1 {
+      max-width: 640px;
+      font-weight: 200;
+      font-size: clamp(38px, 5.8vw, 54px);
+      line-height: 1.05;
+      letter-spacing: -.028em;
+      margin-bottom: 24px;
+    }
+
+    .lede {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: clamp(17px, 1.68vw, 18.5px);
+      line-height: 1.57;
+    }
+
+    .infrastructure {
+      margin-bottom: 62px;
+    }
+
+    .visual-frame {
+      position: relative;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 17px 0 18px;
+    }
+
+    .visual-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 15px;
+      color: var(--quiet);
+      font-size: 9.5px;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .visual-labels span:last-child { text-align: right; }
+
+    .infra-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .infra-svg * { vector-effect: non-scaling-stroke; }
+
+    .draw { fill: none; stroke: var(--rule); stroke-width: 1; }
+    .draw-soft { stroke: var(--soft-rule); }
+    .draw-dark { stroke: var(--text); stroke-opacity: .68; }
+    .fill-soft { fill: var(--panel); }
+
+    .floor-label {
+      fill: var(--quiet);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: .16em;
+    }
+
+    .node {
+      fill: var(--bg);
+      stroke: var(--rule);
+      stroke-width: 1;
+    }
+
+    .node.is-live {
+      fill: var(--text);
+      stroke: var(--text);
+      opacity: .68;
+      transform-origin: center;
+      animation: node-breathe 6.2s var(--ease) infinite;
+    }
+
+    .rack-unit {
+      fill: rgba(255,255,255,.48);
+      stroke: var(--rule);
+      stroke-width: 1;
+    }
+
+    .rack-slot { stroke: var(--soft-rule); stroke-width: 1; }
+
+    .led {
+      fill: var(--text);
+      opacity: .18;
+      animation: led 5.2s ease-in-out infinite;
+    }
+
+    .led:nth-of-type(2n) { animation-delay: -1.2s; }
+    .led:nth-of-type(3n) { animation-delay: -2.1s; }
+    .led:nth-of-type(5n) { animation-delay: -3.3s; }
+
+    .route {
+      fill: none;
+      stroke: var(--soft-rule);
+      stroke-width: 1;
+    }
+
+    .route-live {
+      fill: none;
+      stroke: var(--signal);
+      stroke-width: 1.05;
+      stroke-linecap: round;
+      opacity: .54;
+      pathLength: 1;
+      stroke-dasharray: .032 .968;
+      animation: signal-flow 8.4s linear infinite;
+    }
+
+    .route-live.slow { animation-duration: 11.4s; opacity: .40; }
+    .route-live.fast { animation-duration: 6.6s; opacity: .58; }
+    .route-live.delay-1 { animation-delay: -1.6s; }
+    .route-live.delay-2 { animation-delay: -3.4s; }
+    .route-live.delay-3 { animation-delay: -5.2s; }
+
+    .scan {
+      fill: rgba(26,26,24,.026);
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: quiet-scan 13s var(--ease) infinite;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 42px;
+      margin-bottom: 68px;
+    }
+
+    .service h2 {
+      font-weight: 400;
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.57;
+    }
+
+    .statement {
+      margin-bottom: var(--section);
+      padding-top: 40px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .statement p {
+      max-width: 660px;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.46;
+      letter-spacing: -.01em;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 52px;
+      padding-top: 40px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact h2 {
+      font-weight: 200;
+      font-size: clamp(28px, 3.3vw, 35px);
+      letter-spacing: -.016em;
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+
+    .contact p {
+      max-width: 455px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .contact-details {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .contact-details li {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 16px;
+      align-items: baseline;
+      font-size: 15px;
+      min-width: 0;
+    }
+
+    .label {
+      color: var(--quiet);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: border-color .2s ease, color .2s ease;
+    }
+
+    a:hover, a:focus-visible {
+      border-color: var(--text);
+      outline: none;
+    }
+
+    footer {
+      margin-top: var(--section);
+      padding-top: 28px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px 28px;
+      color: var(--quiet);
+      font-size: 11px;
+      line-height: 1.65;
+      letter-spacing: .045em;
+    }
+
+    .legal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 14px;
+    }
+
+    .legal span { white-space: nowrap; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: reveal 1s var(--ease) forwards;
+    }
+
+    .brand.reveal { animation-delay: .05s; }
+    .hero.reveal { animation-delay: .14s; }
+    .infrastructure.reveal { animation-delay: .24s; }
+    .services.reveal { animation-delay: .34s; }
+
+    @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+    @keyframes signal-flow { to { stroke-dashoffset: -1; } }
+    @keyframes led {
+      0%, 100% { opacity: .16; }
+      38% { opacity: .62; }
+      52% { opacity: .28; }
+    }
+    @keyframes node-breathe {
+      0%, 100% { opacity: .38; transform: scale(.94); }
+      50% { opacity: .72; transform: scale(1.06); }
+    }
+    @keyframes quiet-scan {
+      0%, 100% { transform: translateX(-16px); opacity: 0; }
+      18%, 76% { opacity: 1; }
+      50% { transform: translateX(16px); }
+    }
+
+    @media (max-width: 760px) {
+      :root { --gutter: 24px; --section: 60px; }
+      main { padding-top: 52px; }
+      .brand { margin-bottom: 48px; }
+      .hero { margin-bottom: 56px; }
+      .infrastructure { margin-bottom: 56px; }
+      .services,
+      .contact,
+      footer { grid-template-columns: 1fr; gap: 28px; }
+      .services { gap: 30px; margin-bottom: 60px; }
+      .visual-labels { font-size: 9px; letter-spacing: .14em; }
+      .contact-details li { grid-template-columns: 1fr; gap: 4px; }
+      .legal span { white-space: normal; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="brand reveal">
+      <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 314 100" role="img">
+  <title>Shorland — Commercial IT Systems + Support</title>
+  <desc>Shorland logo wordmark, text outlined to paths</desc>
+  <path d="M14.51 52.62L14.51 52.62Q10.04 52.62 7.12 50.93Q4.21 49.24 2.18 46.59L2.18 46.59L3.64 45.45Q5.56 47.94 8.09 49.43Q10.61 50.91 14.56 50.91L14.56 50.91Q19.08 50.91 21.55 48.78Q24.02 46.64 24.02 42.64L24.02 42.64Q24.02 39.88 22.98 38.30Q21.94 36.71 20.12 35.88Q18.30 35.05 16.07 34.58L16.07 34.58L12.58 33.90Q9.00 33.23 6.94 31.85Q4.89 30.47 3.98 28.57Q3.07 26.68 3.07 24.44L3.07 24.44Q3.07 21.27 4.47 19.19Q5.88 17.11 8.42 16.09Q10.97 15.08 14.35 15.08L14.35 15.08Q18.41 15.08 21.11 16.48Q23.82 17.89 25.38 20.23L25.38 20.23L23.92 21.32Q22.36 19.08 20.02 17.94Q17.68 16.80 14.25 16.80L14.25 16.80Q9.93 16.80 7.46 18.67Q4.99 20.54 4.99 24.39L4.99 24.39Q4.99 26.94 6.06 28.47Q7.12 30.00 8.94 30.84Q10.76 31.67 13.00 32.14L13.00 32.14L16.48 32.81Q20.18 33.49 22.23 34.92Q24.28 36.35 25.09 38.30Q25.90 40.25 25.90 42.48L25.90 42.48Q25.90 45.81 24.52 48.05Q23.14 50.28 20.57 51.45Q17.99 52.62 14.51 52.62ZM66.87 52L64.95 52L64.95 34.48L43.47 34.48L43.47 52L41.55 52L41.55 15.70L43.47 15.70L43.47 32.76L64.95 32.76L64.95 15.70L66.87 15.70L66.87 52ZM97.45 52.62L97.45 52.62Q92.92 52.62 89.73 50.52Q86.53 48.41 84.81 44.23Q83.10 40.04 83.10 33.85L83.10 33.85Q83.10 27.66 84.81 23.48Q86.53 19.29 89.73 17.19Q92.92 15.08 97.45 15.08L97.45 15.08Q102.02 15.08 105.22 17.19Q108.42 19.29 110.11 23.48Q111.80 27.66 111.80 33.85L111.80 33.85Q111.80 40.04 110.11 44.23Q108.42 48.41 105.22 50.52Q102.02 52.62 97.45 52.62ZM97.45 50.91L97.45 50.91Q101.30 50.91 104.03 49.14Q106.76 47.37 108.26 43.89Q109.77 40.40 109.77 35.41L109.77 35.41L109.77 32.29Q109.77 27.25 108.26 23.79Q106.76 20.33 104.03 18.56Q101.30 16.80 97.45 16.80L97.45 16.80Q93.70 16.80 90.92 18.56Q88.14 20.33 86.66 23.79Q85.18 27.25 85.18 32.29L85.18 32.29L85.18 35.41Q85.18 40.40 86.66 43.89Q88.14 47.37 90.92 49.14Q93.70 50.91 97.45 50.91ZM140.66 35.52L129.95 35.52L129.95 52L128.02 52L128.02 15.70L142.12 15.70Q145.13 15.70 147.21 16.90Q149.29 18.10 150.36 20.33Q151.42 22.57 151.42 25.58L151.42 25.58Q151.42 29.90 149.21 32.58Q147.00 35.26 142.69 35.41L142.69 35.41L152.31 52L150.12 52L140.66 35.52ZM129.95 17.42L129.95 33.85L142.12 33.85Q144.56 33.85 146.17 32.86Q147.78 31.88 148.56 30.29Q149.34 28.70 149.34 26.78L149.34 26.78L149.34 24.49Q149.34 22.57 148.56 20.96Q147.78 19.34 146.17 18.38Q144.56 17.42 142.12 17.42L142.12 17.42L129.95 17.42ZM186.63 50.28L186.63 52L168.17 52L168.17 15.70L170.09 15.70L170.09 50.28L186.63 50.28ZM212.16 15.70L225.21 52L223.18 52L218.97 40.20L202.80 40.20L198.59 52L196.61 52L209.66 15.70L212.16 15.70ZM203.32 38.53L218.45 38.53L213.51 24.65L210.96 17.58L210.76 17.58L208.26 24.65L203.32 38.53ZM264.78 52L262.34 52L246.74 26.88L241.49 18.20L241.33 18.20L241.33 26.88L241.33 52L239.46 52L239.46 15.70L241.96 15.70L257.56 40.82L262.81 49.50L262.96 49.50L262.96 40.82L262.96 15.70L264.78 15.70L264.78 52ZM293.96 52L282.93 52L282.93 15.70L293.96 15.70Q298.69 15.70 301.94 17.73Q305.19 19.76 306.80 23.79Q308.41 27.82 308.41 33.85L308.41 33.85Q308.41 39.83 306.80 43.89Q305.19 47.94 301.94 49.97Q298.69 52 293.96 52L293.96 52ZM284.86 17.42L284.86 50.28L293.96 50.28Q298.12 50.28 300.87 48.49Q303.63 46.70 304.98 43.42Q306.33 40.14 306.33 35.72L306.33 35.72L306.33 31.98Q306.33 27.51 304.98 24.23Q303.63 20.96 300.87 19.19Q298.12 17.42 293.96 17.42L293.96 17.42L284.86 17.42Z" fill="#1A1A18"/>
+  <line x1="0" y1="63" x2="311.90" y2="63" stroke="#CCCBC6" stroke-width="1"/>
+  <path d="M5.08 87.18L5.08 87.18Q3.76 87.18 2.82 86.57Q1.88 85.97 1.37 84.77Q0.87 83.58 0.87 81.83L0.87 81.83Q0.87 80.07 1.37 78.85Q1.88 77.63 2.82 76.99Q3.76 76.35 5.08 76.35L5.08 76.35Q6.39 76.35 7.29 76.95Q8.19 77.55 8.69 78.64L8.69 78.64L7.67 79.26Q7.35 78.45 6.71 77.96Q6.06 77.47 5.08 77.47L5.08 77.47Q3.73 77.47 2.98 78.46Q2.22 79.44 2.22 81.05L2.22 81.05L2.22 82.61Q2.22 84.21 2.98 85.13Q3.73 86.06 5.08 86.06L5.08 86.06Q6.09 86.06 6.76 85.54Q7.44 85.02 7.75 84.17L7.75 84.17L8.76 84.80Q8.27 85.89 7.33 86.53Q6.39 87.18 5.08 87.18ZM16.13 87.18L16.13 87.18Q14.77 87.18 13.78 86.56Q12.78 85.94 12.23 84.73Q11.68 83.52 11.68 81.77L11.68 81.77Q11.68 80.01 12.23 78.80Q12.78 77.59 13.78 76.97Q14.77 76.35 16.13 76.35L16.13 76.35Q17.48 76.35 18.47 76.97Q19.47 77.59 20.02 78.80Q20.56 80.01 20.56 81.77L20.56 81.77Q20.56 83.52 20.02 84.73Q19.47 85.94 18.47 86.56Q17.48 87.18 16.13 87.18ZM16.13 86.06L16.13 86.06Q17.04 86.06 17.73 85.63Q18.42 85.20 18.82 84.44Q19.21 83.67 19.21 82.64L19.21 82.64L19.21 80.89Q19.21 79.86 18.82 79.09Q18.42 78.31 17.73 77.89Q17.04 77.47 16.13 77.47L16.13 77.47Q15.22 77.47 14.53 77.89Q13.83 78.31 13.43 79.09Q13.04 79.86 13.04 80.89L13.04 80.89L13.04 82.64Q13.04 83.67 13.43 84.44Q13.83 85.20 14.53 85.63Q15.22 86.06 16.13 86.06ZM25.56 87L24.33 87L24.33 76.53L26.01 76.53L27.99 80.23L29.01 82.17L29.08 82.17L30.12 80.23L32.10 76.53L33.72 76.53L33.72 87L32.49 87L32.49 79.94L32.49 78.18L32.41 78.18L31.53 79.94L29.02 84.50L26.52 79.94L25.63 78.18L25.56 78.18L25.56 79.94L25.56 87ZM39.24 87L38.01 87L38.01 76.53L39.69 76.53L41.67 80.23L42.69 82.17L42.76 82.17L43.80 80.23L45.78 76.53L47.40 76.53L47.40 87L46.17 87L46.17 79.94L46.17 78.18L46.09 78.18L45.21 79.94L42.70 84.50L40.20 79.94L39.31 78.18L39.24 78.18L39.24 79.94L39.24 87ZM58.08 85.89L58.08 87L51.69 87L51.69 76.53L58.08 76.53L58.08 77.64L52.95 77.64L52.95 81.15L57.78 81.15L57.78 82.26L52.95 82.26L52.95 85.89L58.08 85.89ZM65.64 82.50L63.19 82.50L63.19 87L61.93 87L61.93 76.53L66.10 76.53Q67.02 76.53 67.67 76.88Q68.32 77.22 68.68 77.88Q69.03 78.54 69.03 79.50L69.03 79.50Q69.03 80.64 68.49 81.39Q67.95 82.14 66.93 82.38L66.93 82.38L69.33 87L67.90 87L65.64 82.50ZM63.19 77.64L63.19 81.42L66.10 81.42Q66.60 81.42 66.95 81.25Q67.30 81.08 67.49 80.74Q67.68 80.40 67.68 79.92L67.68 79.92L67.68 79.14Q67.68 78.66 67.49 78.32Q67.30 77.98 66.95 77.81Q66.60 77.64 66.10 77.64L66.10 77.64L63.19 77.64ZM76.72 87.18L76.72 87.18Q75.40 87.18 74.46 86.57Q73.51 85.97 73.01 84.77Q72.51 83.58 72.51 81.83L72.51 81.83Q72.51 80.07 73.01 78.85Q73.51 77.63 74.46 76.99Q75.40 76.35 76.72 76.35L76.72 76.35Q78.03 76.35 78.93 76.95Q79.83 77.55 80.32 78.64L80.32 78.64L79.30 79.26Q78.99 78.45 78.34 77.96Q77.70 77.47 76.72 77.47L76.72 77.47Q75.37 77.47 74.62 78.46Q73.86 79.44 73.86 81.05L73.86 81.05L73.86 82.61Q73.86 84.21 74.62 85.13Q75.37 86.06 76.72 86.06L76.72 86.06Q77.73 86.06 78.40 85.54Q79.08 85.02 79.39 84.17L79.39 84.17L80.40 84.80Q79.90 85.89 78.97 86.53Q78.03 87.18 76.72 87.18ZM87.55 85.95L87.55 87L83.35 87L83.35 85.95L84.82 85.95L84.82 77.58L83.35 77.58L83.35 76.53L87.55 76.53L87.55 77.58L86.08 77.58L86.08 85.95L87.55 85.95ZM95.56 76.53L99.22 87L97.90 87L96.85 83.91L92.62 83.91L91.57 87L90.30 87L93.96 76.53L95.56 76.53ZM92.92 82.80L96.54 82.80L95.22 79.00L94.77 77.70L94.69 77.70L94.24 79.00L92.92 82.80ZM108.18 85.89L108.18 87L102.46 87L102.46 76.53L103.72 76.53L103.72 85.89L108.18 85.89ZM120.22 85.95L120.22 87L116.02 87L116.02 85.95L117.49 85.95L117.49 77.58L116.02 77.58L116.02 76.53L120.22 76.53L120.22 77.58L118.75 77.58L118.75 85.95L120.22 85.95ZM130.88 76.53L130.88 77.64L127.54 77.64L127.54 87L126.28 87L126.28 77.64L122.95 77.64L122.95 76.53L130.88 76.53ZM142.08 87.18L142.08 87.18Q140.82 87.18 139.91 86.69Q139.00 86.20 138.37 85.35L138.37 85.35L139.30 84.57Q139.86 85.31 140.53 85.69Q141.21 86.07 142.12 86.07L142.12 86.07Q143.25 86.07 143.84 85.53Q144.43 84.99 144.43 84.09L144.43 84.09Q144.43 83.59 144.24 83.25Q144.04 82.91 143.62 82.67Q143.19 82.44 142.50 82.29L142.50 82.29L141.64 82.09Q140.70 81.87 140.04 81.51Q139.38 81.15 139.03 80.58Q138.69 80.01 138.69 79.22L138.69 79.22Q138.69 78.28 139.12 77.65Q139.56 77.01 140.35 76.68Q141.13 76.35 142.15 76.35L142.15 76.35Q143.34 76.35 144.19 76.78Q145.03 77.22 145.62 78.06L145.62 78.06L144.67 78.75Q144.25 78.15 143.63 77.81Q143.01 77.46 142.09 77.46L142.09 77.46Q141.09 77.46 140.51 77.89Q139.93 78.33 139.93 79.17L139.93 79.17Q139.93 79.67 140.15 80.00Q140.37 80.33 140.80 80.54Q141.24 80.76 141.90 80.91L141.90 80.91L142.75 81.11Q143.77 81.33 144.42 81.72Q145.06 82.11 145.37 82.68Q145.68 83.25 145.68 84.03L145.68 84.03Q145.68 84.99 145.24 85.69Q144.81 86.40 144.01 86.79Q143.20 87.18 142.08 87.18ZM153.01 82.81L153.01 87L151.75 87L151.75 82.86L148.15 76.53L149.59 76.53L152.38 81.57L152.43 81.57L155.22 76.53L156.66 76.53L153.01 82.81ZM162.69 87.18L162.69 87.18Q161.43 87.18 160.52 86.69Q159.61 86.20 158.98 85.35L158.98 85.35L159.91 84.57Q160.47 85.31 161.14 85.69Q161.82 86.07 162.73 86.07L162.73 86.07Q163.86 86.07 164.45 85.53Q165.04 84.99 165.04 84.09L165.04 84.09Q165.04 83.59 164.85 83.25Q164.66 82.91 164.23 82.67Q163.80 82.44 163.11 82.29L163.11 82.29L162.25 82.09Q161.31 81.87 160.65 81.51Q159.99 81.15 159.64 80.58Q159.30 80.01 159.30 79.22L159.30 79.22Q159.30 78.28 159.73 77.65Q160.17 77.01 160.96 76.68Q161.74 76.35 162.76 76.35L162.76 76.35Q163.95 76.35 164.80 76.78Q165.64 77.22 166.23 78.06L166.23 78.06L165.28 78.75Q164.86 78.15 164.24 77.81Q163.62 77.46 162.70 77.46L162.70 77.46Q161.70 77.46 161.12 77.89Q160.54 78.33 160.54 79.17L160.54 79.17Q160.54 79.67 160.76 80.00Q160.98 80.33 161.41 80.54Q161.85 80.76 162.51 80.91L162.51 80.91L163.36 81.11Q164.38 81.33 165.03 81.72Q165.67 82.11 165.98 82.68Q166.29 83.25 166.29 84.03L166.29 84.03Q166.29 84.99 165.85 85.69Q165.42 86.40 164.62 86.79Q163.81 87.18 162.69 87.18ZM176.82 76.53L176.82 77.64L173.49 77.64L173.49 87L172.23 87L172.23 77.64L168.90 77.64L168.90 76.53L176.82 76.53ZM186.44 85.89L186.44 87L180.05 87L180.05 76.53L186.44 76.53L186.44 77.64L181.31 77.64L181.31 81.15L186.13 81.15L186.13 82.26L181.31 82.26L181.31 85.89L186.44 85.89ZM191.52 87L190.29 87L190.29 76.53L191.97 76.53L193.95 80.23L194.97 82.17L195.05 82.17L196.08 80.23L198.06 76.53L199.68 76.53L199.68 87L198.45 87L198.45 79.94L198.45 78.18L198.38 78.18L197.49 79.94L194.99 84.50L192.48 79.94L191.59 78.18L191.52 78.18L191.52 79.94L191.52 87ZM206.91 87.18L206.91 87.18Q205.65 87.18 204.74 86.69Q203.84 86.20 203.21 85.35L203.21 85.35L204.14 84.57Q204.69 85.31 205.37 85.69Q206.04 86.07 206.96 86.07L206.96 86.07Q208.08 86.07 208.67 85.53Q209.27 84.99 209.27 84.09L209.27 84.09Q209.27 83.59 209.07 83.25Q208.88 82.91 208.45 82.67Q208.02 82.44 207.33 82.29L207.33 82.29L206.48 82.09Q205.53 81.87 204.87 81.51Q204.21 81.15 203.87 80.58Q203.52 80.01 203.52 79.22L203.52 79.22Q203.52 78.28 203.96 77.65Q204.39 77.01 205.18 76.68Q205.97 76.35 206.99 76.35L206.99 76.35Q208.17 76.35 209.02 76.78Q209.87 77.22 210.45 78.06L210.45 78.06L209.51 78.75Q209.09 78.15 208.46 77.81Q207.84 77.46 206.93 77.46L206.93 77.46Q205.92 77.46 205.34 77.89Q204.77 78.33 204.77 79.17L204.77 79.17Q204.77 79.67 204.98 80.00Q205.20 80.33 205.64 80.54Q206.07 80.76 206.73 80.91L206.73 80.91L207.59 81.11Q208.61 81.33 209.25 81.72Q209.90 82.11 210.20 82.68Q210.51 83.25 210.51 84.03L210.51 84.03Q210.51 84.99 210.08 85.69Q209.64 86.40 208.84 86.79Q208.04 87.18 206.91 87.18ZM222.90 82.94L222.90 86.07L221.76 86.07L221.76 82.94L218.84 82.94L218.84 81.92L221.76 81.92L221.76 78.78L222.90 78.78L222.90 81.92L225.83 81.92L225.83 82.94L222.90 82.94ZM237.71 87.18L237.71 87.18Q236.44 87.18 235.54 86.69Q234.63 86.20 234 85.35L234 85.35L234.93 84.57Q235.49 85.31 236.16 85.69Q236.84 86.07 237.75 86.07L237.75 86.07Q238.88 86.07 239.47 85.53Q240.06 84.99 240.06 84.09L240.06 84.09Q240.06 83.59 239.87 83.25Q239.67 82.91 239.24 82.67Q238.81 82.44 238.13 82.29L238.13 82.29L237.27 82.09Q236.33 81.87 235.66 81.51Q235.00 81.15 234.66 80.58Q234.31 80.01 234.31 79.22L234.31 79.22Q234.31 78.28 234.75 77.65Q235.19 77.01 235.97 76.68Q236.76 76.35 237.78 76.35L237.78 76.35Q238.97 76.35 239.81 76.78Q240.66 77.22 241.25 78.06L241.25 78.06L240.30 78.75Q239.88 78.15 239.26 77.81Q238.63 77.46 237.72 77.46L237.72 77.46Q236.72 77.46 236.14 77.89Q235.56 78.33 235.56 79.17L235.56 79.17Q235.56 79.67 235.78 80.00Q236.00 80.33 236.43 80.54Q236.87 80.76 237.53 80.91L237.53 80.91L238.38 81.11Q239.40 81.33 240.05 81.72Q240.69 82.11 241.00 82.68Q241.31 83.25 241.31 84.03L241.31 84.03Q241.31 84.99 240.87 85.69Q240.44 86.40 239.63 86.79Q238.83 87.18 237.71 87.18ZM244.91 82.71L244.91 76.53L246.17 76.53L246.17 83.01Q246.17 84 246.41 84.68Q246.65 85.36 247.19 85.71Q247.74 86.06 248.67 86.06L248.67 86.06Q249.60 86.06 250.15 85.71Q250.69 85.36 250.94 84.68Q251.18 84 251.18 83.01L251.18 83.01L251.18 76.53L252.44 76.53L252.44 82.71Q252.44 84.22 252.07 85.22Q251.70 86.22 250.86 86.70Q250.02 87.18 248.63 87.18L248.63 87.18Q247.23 87.18 246.42 86.70Q245.61 86.22 245.26 85.22Q244.91 84.22 244.91 82.71L244.91 82.71ZM257.91 82.53L257.91 87L256.65 87L256.65 76.53L260.82 76.53Q261.76 76.53 262.42 76.90Q263.07 77.27 263.41 77.93Q263.75 78.60 263.75 79.53L263.75 79.53Q263.75 80.44 263.41 81.12Q263.07 81.80 262.42 82.16Q261.76 82.53 260.82 82.53L260.82 82.53L257.91 82.53ZM260.82 77.64L257.91 77.64L257.91 81.42L260.82 81.42Q261.31 81.42 261.67 81.25Q262.02 81.08 262.21 80.74Q262.39 80.40 262.39 79.92L262.39 79.92L262.39 79.14Q262.39 78.66 262.21 78.32Q262.02 77.98 261.67 77.81Q261.31 77.64 260.82 77.64L260.82 77.64ZM268.50 82.53L268.50 87L267.24 87L267.24 76.53L271.41 76.53Q272.35 76.53 273.01 76.90Q273.66 77.27 274.00 77.93Q274.33 78.60 274.33 79.53L274.33 79.53Q274.33 80.44 274.00 81.12Q273.66 81.80 273.01 82.16Q272.35 82.53 271.41 82.53L271.41 82.53L268.50 82.53ZM271.41 77.64L268.50 77.64L268.50 81.42L271.41 81.42Q271.90 81.42 272.26 81.25Q272.61 81.08 272.80 80.74Q272.98 80.40 272.98 79.92L272.98 79.92L272.98 79.14Q272.98 78.66 272.80 78.32Q272.61 77.98 272.26 77.81Q271.90 77.64 271.41 77.64L271.41 77.64ZM281.74 87.18L281.74 87.18Q280.39 87.18 279.40 86.56Q278.40 85.94 277.85 84.73Q277.30 83.52 277.30 81.77L277.30 81.77Q277.30 80.01 277.85 78.80Q278.40 77.59 279.40 76.97Q280.39 76.35 281.74 76.35L281.74 76.35Q283.09 76.35 284.09 76.97Q285.09 77.59 285.64 78.80Q286.18 80.01 286.18 81.77L286.18 81.77Q286.18 83.52 285.64 84.73Q285.09 85.94 284.09 86.56Q283.09 87.18 281.74 87.18ZM281.74 86.06L281.74 86.06Q282.66 86.06 283.35 85.63Q284.04 85.20 284.44 84.44Q284.83 83.67 284.83 82.64L284.83 82.64L284.83 80.89Q284.83 79.86 284.44 79.09Q284.04 78.31 283.35 77.89Q282.66 77.47 281.74 77.47L281.74 77.47Q280.84 77.47 280.15 77.89Q279.45 78.31 279.05 79.09Q278.65 79.86 278.65 80.89L278.65 80.89L278.65 82.64Q278.65 83.67 279.05 84.44Q279.45 85.20 280.15 85.63Q280.84 86.06 281.74 86.06ZM293.65 82.50L291.21 82.50L291.21 87L289.95 87L289.95 76.53L294.12 76.53Q295.03 76.53 295.69 76.88Q296.34 77.22 296.69 77.88Q297.04 78.54 297.04 79.50L297.04 79.50Q297.04 80.64 296.50 81.39Q295.96 82.14 294.94 82.38L294.94 82.38L297.34 87L295.92 87L293.65 82.50ZM291.21 77.64L291.21 81.42L294.12 81.42Q294.61 81.42 294.97 81.25Q295.32 81.08 295.51 80.74Q295.69 80.40 295.69 79.92L295.69 79.92L295.69 79.14Q295.69 78.66 295.51 78.32Q295.32 77.98 294.97 77.81Q294.61 77.64 294.12 77.64L294.12 77.64L291.21 77.64ZM307.90 76.53L307.90 77.64L304.57 77.64L304.57 87L303.31 87L303.31 77.64L299.98 77.64L299.98 76.53L307.90 76.53Z" fill="#6A6866"/>
+</svg>
+    </header>
+
+    <section class="hero reveal" aria-labelledby="intro-title">
+      <h1 id="intro-title">Commercial IT systems, run quietly.</h1>
+      <p class="lede">Shorland designs, supports and manages the working technology behind offices, co-working spaces and commercial property: networks, Wi&#8209;Fi, Microsoft 365, devices, connectivity and day-to-day support.</p>
+    </section>
+
+    <section class="infrastructure reveal" aria-labelledby="infrastructure-title">
+      <div class="visual-frame">
+        <div class="visual-labels" aria-hidden="true">
+          <span>building systems</span>
+          <span>comms room / support layer</span>
+        </div>
+
+        <svg class="infra-svg" viewBox="0 0 760 310" role="img" aria-labelledby="infrastructure-title infrastructure-desc">
+          <title id="infrastructure-title">Commercial building IT systems diagram</title>
+          <desc id="infrastructure-desc">A quiet animated line diagram showing a commercial building network connected to a comms rack, with smooth signal paths representing managed IT systems and support.</desc>
+
+          <rect x="0" y="0" width="760" height="310" fill="transparent" />
+
+          <g opacity=".64">
+            <path class="draw draw-soft" d="M40 282H720" />
+            <path class="draw draw-soft" d="M40 226H720" />
+            <path class="draw draw-soft" d="M40 170H720" />
+            <path class="draw draw-soft" d="M40 114H720" />
+            <path class="draw draw-soft" d="M40 58H720" />
+            <path class="draw draw-soft" d="M116 36V282" />
+            <path class="draw draw-soft" d="M266 36V282" />
+            <path class="draw draw-soft" d="M416 36V282" />
+            <path class="draw draw-soft" d="M566 36V282" />
+          </g>
+
+          <g aria-hidden="true">
+            <rect class="fill-soft draw" x="72" y="44" width="356" height="222" rx="1" />
+            <path class="draw draw-dark" d="M72 88H428M72 132H428M72 176H428M72 220H428" />
+            <path class="draw" d="M138 44V266M206 44V266M274 44V266M342 44V266" />
+            <path class="draw draw-dark" d="M382 58V252" />
+            <path class="draw" d="M366 58H398M366 252H398" />
+
+            <text class="floor-label" x="82" y="73">LEVEL 04</text>
+            <text class="floor-label" x="82" y="117">LEVEL 03</text>
+            <text class="floor-label" x="82" y="161">LEVEL 02</text>
+            <text class="floor-label" x="82" y="205">LEVEL 01</text>
+            <text class="floor-label" x="82" y="249">COMMS</text>
+
+            <rect class="scan" x="116" y="52" width="36" height="206" rx="1" />
+
+            <circle class="node" cx="178" cy="66" r="4" />
+            <circle class="node is-live" cx="246" cy="66" r="3.4" />
+            <circle class="node" cx="314" cy="66" r="4" />
+            <circle class="node is-live" cx="178" cy="110" r="3.4" />
+            <circle class="node" cx="246" cy="110" r="4" />
+            <circle class="node" cx="314" cy="110" r="4" />
+            <circle class="node" cx="178" cy="154" r="4" />
+            <circle class="node is-live" cx="246" cy="154" r="3.4" />
+            <circle class="node" cx="314" cy="154" r="4" />
+            <circle class="node" cx="178" cy="198" r="4" />
+            <circle class="node" cx="246" cy="198" r="4" />
+            <circle class="node is-live" cx="314" cy="198" r="3.4" />
+            <circle class="node is-live" cx="178" cy="242" r="3.4" />
+            <circle class="node" cx="246" cy="242" r="4" />
+            <circle class="node" cx="314" cy="242" r="4" />
+          </g>
+
+          <g aria-hidden="true">
+            <rect class="fill-soft draw draw-dark" x="520" y="62" width="110" height="190" rx="2" />
+            <rect class="rack-unit" x="534" y="78" width="82" height="22" rx="1" />
+            <rect class="rack-unit" x="534" y="110" width="82" height="22" rx="1" />
+            <rect class="rack-unit" x="534" y="142" width="82" height="22" rx="1" />
+            <rect class="rack-unit" x="534" y="174" width="82" height="22" rx="1" />
+            <rect class="rack-unit" x="534" y="206" width="82" height="22" rx="1" />
+            <path class="rack-slot" d="M546 89H588M546 121H588M546 153H588M546 185H588M546 217H588" />
+            <circle class="led" cx="602" cy="89" r="2.4" />
+            <circle class="led" cx="602" cy="121" r="2.4" />
+            <circle class="led" cx="602" cy="153" r="2.4" />
+            <circle class="led" cx="602" cy="185" r="2.4" />
+            <circle class="led" cx="602" cy="217" r="2.4" />
+            <path class="draw" d="M642 88H682V228H642" />
+            <path class="draw" d="M654 112H682M654 144H682M654 176H682M654 208H682" />
+            <circle class="node is-live" cx="682" cy="112" r="3.2" />
+            <circle class="node" cx="682" cy="144" r="3.8" />
+            <circle class="node is-live" cx="682" cy="176" r="3.2" />
+            <circle class="node" cx="682" cy="208" r="3.8" />
+            <text class="floor-label" x="520" y="275">NETWORK · WIFI · M365 · SUPPORT</text>
+          </g>
+
+          <path class="route" d="M382 242V66" pathLength="1" />
+          <path class="route" d="M382 242 C440 242 458 217 520 217" pathLength="1" />
+          <path class="route" d="M616 89 C650 89 650 112 682 112" pathLength="1" />
+          <path class="route" d="M382 66H246" pathLength="1" />
+          <path class="route" d="M382 110H178" pathLength="1" />
+          <path class="route" d="M382 154H246" pathLength="1" />
+          <path class="route" d="M382 198H314" pathLength="1" />
+          <path class="route" d="M382 242H178" pathLength="1" />
+          <path class="route" d="M616 121C650 121 650 144 682 144" pathLength="1" />
+          <path class="route" d="M616 153C650 153 650 176 682 176" pathLength="1" />
+          <path class="route" d="M616 185C650 185 650 208 682 208" pathLength="1" />
+
+          <path class="route-live fast" d="M382 66H246" pathLength="1" />
+          <path class="route-live slow delay-1" d="M382 110H178" pathLength="1" />
+          <path class="route-live delay-2" d="M382 154H246" pathLength="1" />
+          <path class="route-live fast delay-3" d="M382 198H314" pathLength="1" />
+          <path class="route-live slow" d="M382 242H178" pathLength="1" />
+          <path class="route-live fast delay-1" d="M382 242V66" pathLength="1" />
+          <path class="route-live delay-2" d="M382 242 C440 242 458 217 520 217" pathLength="1" />
+          <path class="route-live slow delay-3" d="M616 89 C650 89 650 112 682 112" pathLength="1" />
+          <path class="route-live delay-1" d="M616 121C650 121 650 144 682 144" pathLength="1" />
+          <path class="route-live fast delay-2" d="M616 153C650 153 650 176 682 176" pathLength="1" />
+          <path class="route-live slow delay-3" d="M616 185C650 185 650 208 682 208" pathLength="1" />
+        </svg>
+      </div>
+    </section>
+
+    <section class="services reveal" aria-label="Client sectors">
+      <article class="service">
+        <h2>Businesses</h2>
+        <p>End-to-end IT for SME and mid-market operations, including helpdesk, Microsoft 365, infrastructure, procurement and ongoing management.</p>
+      </article>
+      <article class="service">
+        <h2>Co-working</h2>
+        <p>Member-grade connectivity, tenant onboarding, shared systems and support for busy flexible workspaces.</p>
+      </article>
+      <article class="service">
+        <h2>Property</h2>
+        <p>Building networks, managed Wi&#8209;Fi and the practical technology layer commercial landlords and operators depend on.</p>
+      </article>
+    </section>
+
+    <section class="statement" aria-label="Positioning statement">
+      <p>Good commercial IT is steady, well-owned and unobtrusive. Shorland looks after the practical layer behind the working day: networks, connectivity, Microsoft 365, devices and support.</p>
+    </section>
+
+    <section class="contact" aria-labelledby="contact-title">
+      <div>
+        <h2 id="contact-title">Get in touch.</h2>
+        <p>For new commercial enquiries, email is the best starting point. Send a brief note about the organisation, site or requirement, and we will respond with a sensible next step.</p>
+      </div>
+      <ul class="contact-details">
+        <li>
+          <span class="label">Email</span>
+          <a href="mailto:hello@shorland.com">hello@shorland.com</a>
+        </li>
+        <li>
+          <span class="label">Phone</span>
+          <a href="tel:+441174713355">0117 471 3355</a>
+        </li>
+        <li>
+          <span class="label">Area</span>
+          <span>Bristol, United Kingdom</span>
+        </li>
+        <li>
+          <span class="label">Hours</span>
+          <span>Mon–Fri, 08:00–18:00</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <div class="legal">
+        <span>Shorland Ltd</span>
+        <span>VAT No. 491465469</span>
+        <span>Ofcom RID: SPU</span>
+        <span>DUNS: 235592728</span>
+      </div>
+      <span>© 2026</span>
+    </footer>
+  </main>
+</body>
+</html>
